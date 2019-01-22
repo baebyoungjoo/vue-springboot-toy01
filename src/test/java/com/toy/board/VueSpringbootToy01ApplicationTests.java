@@ -1,5 +1,7 @@
 package com.toy.board;
 
+import static org.junit.Assert.assertEquals;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 
@@ -11,6 +13,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import com.nhncorp.lucy.security.xss.XssFilter;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -37,6 +41,20 @@ public class VueSpringbootToy01ApplicationTests {
 		} catch(Exception e) {
 			log.debug(e.getMessage());
 		}
+	}
+	
+	@Test
+	public void pairQuoteCheckOtherCase() {
+		XssFilter filter = XssFilter.getInstance("lucy-xss-superset.xml");
+		String dirty = "<img src=\"<img src=1\\ onerror=alert(1234)>\" onerror=\"alert('XSS')\">";
+		String expected = "<img src=\"\"><!-- Not Allowed Attribute Filtered ( onerror=alert(1234)) --><img src=1\\>\" onerror=\"alert('XSS')\"&gt;";
+		String actual = filter.doFilter(dirty);
+		assertEquals(expected, actual);
+			
+		dirty = "<img src='<img src=1\\ onerror=alert(1234)>\" onerror=\"alert('XSS')\">";
+		expected = "<img src=''><!-- Not Allowed Attribute Filtered ( onerror=alert(1234)) --><img src=1\\>\" onerror=\"alert('XSS')\"&gt;";
+		actual = filter.doFilter(dirty);
+		assertEquals(expected, actual);
 	}
 }
 

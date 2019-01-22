@@ -1,7 +1,5 @@
 # vue-springboot-toy01
 A toy project to study.
 
-
-# #####################
-ulisesbocchio - jasypt
+ulisesbocchio - jasypt <br>
 naver - lucy-xss-servlet

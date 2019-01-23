@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.navercorp.lucy.security.xss.servletfilter.XssEscapeServletFilter;
+import com.nhncorp.lucy.security.xss.XssFilter;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
@@ -17,6 +18,11 @@ public class WebConfig implements WebMvcConfigurer {
 		filterRegistration.setOrder(1);
 		filterRegistration.addUrlPatterns("/*");
 		
-		return filterRegistration;		
+		return filterRegistration;
 	}
+	
+	@Bean
+    public XssFilter xssFilter() {
+        return XssFilter.getInstance("lucy-xss-superset-sax.xml");
+    }
 }

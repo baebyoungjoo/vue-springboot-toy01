@@ -8,6 +8,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ import com.toy.board.repository.BoardRepository;
 
 @RestController
 @RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:8080")
 public class BoardController {
 
 	@Autowired BoardRepository repository;
@@ -43,6 +45,17 @@ public class BoardController {
 		repository.findAll().forEach(boards::add);
 		
 		return boards;
+	}
+	
+	@RequestMapping(value="/board/{id}", method=RequestMethod.GET)
+	public List<Board> findBoard(@PathVariable("id") long id) {
+		Optional<Board> optBoard = repository.findById(id);
+		List<Board> board = new ArrayList<>();
+		
+		/* ifPresent: 해당 객체가 null이 아닐 때 수행. 해당 객체가 null이면 아무 동작 하지 않음. */
+		optBoard.ifPresent(board::add);
+		
+		return board;
 	}
 	
 	@RequestMapping(value="/board/{id}", method=RequestMethod.DELETE)

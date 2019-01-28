@@ -29,7 +29,7 @@ public class BoardController {
 	@Autowired XssFilter xssFilter;
 	
 	@RequestMapping(value="/board", method=RequestMethod.POST)
-	public Board postBoard(@RequestBody Board board) {
+	public Board newPostBoard(@RequestBody Board board) {
 		Board _board = board;
 		
 		_board.setTitle(xssFilter.doFilter(board.getTitle()));

@@ -9,12 +9,12 @@
     
         <div class="form-group">
           <label for="title">title</label>
-          <input type="text" class="form-control" id="title" required v-model="board.title" name="title">
+          <input type="text" class="form-control" id="title" maxlength="30" required v-model="board.title" name="title">
         </div>
     
     <div class="form-group">
           <label for="text">text</label>
-          <input type="text" class="form-control" id="text" required v-model="board.text" name="text">
+          <input type="text" class="form-control" id="text" maxlength="255" required v-model="board.text" name="text">
         </div>
 
         <button @click="saveBoard" class="btn btn-success">Submit</button>

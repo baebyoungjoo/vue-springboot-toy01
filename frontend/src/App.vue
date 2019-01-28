@@ -6,7 +6,7 @@
       </div>
       <nav>
           <router-link class="btn btn-primary" to="/">Home</router-link>
-          <router-link class="btn btn-primary" to="/list">Customers</router-link>
+          <router-link class="btn btn-primary" to="/list">Boards</router-link>
           <router-link class="btn btn-primary" to="/add">Add</router-link>
           <router-link class="btn btn-primary" to="/search">Search</router-link>
       </nav>

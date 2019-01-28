@@ -21,6 +21,7 @@ import com.toy.board.repository.BoardRepository;
 
 @RestController
 @RequestMapping("/api")
+/* 로컬 개발 주석 해제 */
 @CrossOrigin(origins = "http://localhost:7732")
 public class BoardController {
 
@@ -66,17 +67,21 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/board/{id}", method=RequestMethod.PUT)
-	public ResponseEntity<Board> updateBoard(@PathVariable("id") long id, @RequestBody Board board) {
+	public ResponseEntity<Board> updateBoard(@PathVariable("id") long id, @RequestBody(required=false) Board board) {
 		/* Optional prefix: maybe or opt */
 		Optional<Board> optBoardData = repository.findById(id);
 		
 		/* isPresent: 내부 객체가 null인지 아닌지 검사. null return: false */
 		if (optBoardData.isPresent()) {
 			Board _board = optBoardData.get();
-			_board.setUpdatedOn(ZonedDateTime.now());
-			_board.setText(xssFilter.doFilter(board.getText()));
-			_board.setTitle(xssFilter.doFilter(board.getTitle()));
-			_board.setWriter(board.getWriter());
+			if (board != null) {
+				_board.setUpdatedOn(ZonedDateTime.now());
+				_board.setText(xssFilter.doFilter(board.getText()));
+				_board.setTitle(xssFilter.doFilter(board.getTitle()));
+				_board.setWriter(board.getWriter());
+			} else {
+				_board.setHit(_board.getHit() + 1);
+			}
 			return new ResponseEntity<>(repository.save(_board), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

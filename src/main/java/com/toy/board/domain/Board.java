@@ -83,10 +83,10 @@ public class Board {
 		this.createdOn = this.updatedOn = ZonedDateTime.now();
 	}
 	
-	@PreUpdate
-	void updatedOn() {
-		this.updatedOn = ZonedDateTime.now();
-	}
+//	@PreUpdate
+//	void updatedOn() {
+//		this.updatedOn = ZonedDateTime.now();
+//	}
 
 	public int getHit() {
 		return hit;

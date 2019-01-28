@@ -13,19 +13,7 @@
     <div>
       <label>createdOn: </label> {{this.board.createdOn}}
     </div>
-<!-- 
-    <span v-if="this.board"
-      @click="updateActive(false)"
-      class="button is-small btn-primary">Inactive</span>
-    <span v-else
-      @click="updateActive(true)"
-      class="button is-small btn-primary">Active</span>
-   -->
     <span class="button btn-danger" @click="deleteBoard()">Delete</span>
-  </div>
-  <div v-else>
-    <br/>
-    <p>Please click on a Customer...</p>
   </div>
 </template>
 
@@ -41,8 +29,7 @@ export default {
       var data = {
         id: this.board.id,
         title: this.board.title,
-        writer: this.board.writer,
-        createdOn: this.board.createdOn
+        writer: this.board.writer
       };
  
       http
@@ -60,7 +47,7 @@ export default {
         .then(response => {
           // console.log(response.data);
           this.$emit("refreshData");
-          this.$router.push('/');
+          this.$router.push('/list');
         })
         .catch(e => {
           console.log(e);

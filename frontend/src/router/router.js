@@ -19,15 +19,21 @@ export default new Router({
       path: '/list',
       name: 'boards',
       alias: '/boards',
-      component: BoardList,
-      children: [
-        {
-          path: '/board/:id',
-          name: 'board-details',
-          component: Boards,
-          props: true
-        }
-      ]
+      component: BoardList
+      // children: [
+      //   {
+      //     path: '/board/:id',
+      //     name: 'board-details',
+      //     component: Boards,
+      //     props: true
+      //   }
+      // ]
+    },
+    {
+      path: '/board/:id',
+      name: 'board-details',
+      component: Boards,
+      props: true
     },
     {
       path: '/add',

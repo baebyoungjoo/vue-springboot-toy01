@@ -4,32 +4,32 @@
       <table class="table table-hover">
         <thead>
           <tr>
-            <th scope="col">NO</th>
-            <th scope="col">title</th>
-            <th scope="col">writer</th>
+            <th style="width: 10%;" scope="col">NO</th>
+            <th style="width: 10%;" scope="col">title</th>
+            <th style="width: 15%;" scope="col">writer</th>
             <th scope="col">text</th>
-            <th scope="col">hit</th>
-            <th scope="col">created_on</th>
-            <th scope="col">updated_on</th>
+            <th style="width: 5%;" scope="col">hit</th>
+            <th style="width: 15%;" scope="col">created_on</th>
+            <th style="width: 15%;" scope="col">updated_on</th>
           </tr>
         </thead>
         <tbody>
           <tr class="table-info" v-for="(board, index) in boards" :key="index">
             <th scope="row">{{ board.id }}</th>
             <td>
-              <router-link :to="{ name: 'board-details', params: { board: board, id: board.id } }">
-                {{ board.title }}
+              <router-link :to="{ name: 'board-details', params: { board: board, id: board.id } }" >
+                <span @click="hitup(board.id)">{{ board.title }}</span>
               </router-link>
             </td>
             <td>{{ board.writer }}</td>
             <td>{{ board.text }}</td>
             <td>{{ board.hit }}</td>
-            <td>{{ board.createdOn }}</td>
-            <td>{{ board.updatedOn }}</td>
+            <td>{{ board.createdOn.slice(0,19).replace("T"," ") }}</td>
+            <td>{{ board.updatedOn.slice(0,19).replace("T"," ") }}</td>
           </tr>
         </tbody>
       </table>
-      <router-view @refreshData="refreshList"></router-view>
+      <!-- <router-view @refreshData="refreshList"></router-view> -->
     </div>
 </template>
 
@@ -56,6 +56,16 @@ export default {
     },
     refreshList() {
       this.retrieveBoards()
+    },
+    hitup(boardId) {
+      http
+        .put("/board/" + boardId)
+        .then(response => {
+          // console.log(response.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
     }
   },
   mounted() {

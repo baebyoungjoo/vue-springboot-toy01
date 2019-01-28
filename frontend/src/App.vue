@@ -1,11 +1,12 @@
 <template>
   <div id="app" class="container-fluid">
       <div class="site-info">
-          <h1>grokonez</h1>
-          <h3>Vue SpringBoot example</h3>
+          <h1>##########</h1>
+          <h3>Vue SpringBoot Board</h3>
       </div>
       <nav>
-          <router-link class="btn btn-primary" to="/">Customers</router-link>
+          <router-link class="btn btn-primary" to="/">Home</router-link>
+          <router-link class="btn btn-primary" to="/list">Customers</router-link>
           <router-link class="btn btn-primary" to="/add">Add</router-link>
           <router-link class="btn btn-primary" to="/search">Search</router-link>
       </nav>

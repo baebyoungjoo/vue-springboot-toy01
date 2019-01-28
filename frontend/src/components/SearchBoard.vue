@@ -1,6 +1,6 @@
 <template>
   <div class="searchform">
-    <h4>Find Board</h4>
+    <h4>Find Board By Id</h4>
     <div class="form-group">
       <input type="number" class="form-control" id="id" required v-model="id" name="id">
     </div>
@@ -35,7 +35,7 @@ export default {
         .get("/board/" + this.id)
         .then(response => {
           this.boards = response.data; // JSON are parsed automatically.
-          console.log(response.data);
+          // console.log(response.data);
         })
         .catch(e => {
           console.log(e);

@@ -21,7 +21,7 @@ import com.toy.board.repository.BoardRepository;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "http://localhost:7732")
 public class BoardController {
 
 	@Autowired BoardRepository repository;

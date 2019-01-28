@@ -1,6 +1,6 @@
 <template>
   <div class="submitform">
-      <h3>addM</h3>
+      <h3>Add Board</h3>
       <div v-if="!submitted">
           <div class="form-group">
               <label for="writer">writer</label>
@@ -57,7 +57,7 @@ export default {
             .post("/board", data)
             .then(response => {
             this.board.id = response.data.id;
-            console.log(response.data);
+            // console.log(response.data);
             })
             .catch(e => {
             console.log(e);

@@ -48,7 +48,7 @@ export default {
       http
         .put("/board/" + this.board.id, data)
         .then(response => {
-          console.log(response.data);
+          // console.log(response.data);
         })
         .catch(e => {
           console.log(e);
@@ -58,7 +58,7 @@ export default {
       http
         .delete("/board/" + this.board.id)
         .then(response => {
-          console.log(response.data);
+          // console.log(response.data);
           this.$emit("refreshData");
           this.$router.push('/');
         })

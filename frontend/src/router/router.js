@@ -4,6 +4,7 @@ import BoardList from '@/components/BoardList.vue'
 import PostBoard from '@/components/PostBoard.vue'
 import SearchBoard from '@/components/SearchBoard.vue'
 import Boards from '@/components/Boards.vue'
+import Home from '@/components/Home.vue'
 
 Vue.use(Router)
 
@@ -11,6 +12,11 @@ export default new Router({
   routes: [
     {
       path: '/',
+      name: 'home',
+      component: Home
+    },
+    {
+      path: '/list',
       name: 'boards',
       alias: '/boards',
       component: BoardList,

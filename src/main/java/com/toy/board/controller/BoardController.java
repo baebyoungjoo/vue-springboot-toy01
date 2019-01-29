@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -41,9 +43,19 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/boards", method=RequestMethod.GET)
-	public List<Board> getAllBoard() {
+//	public List<Board> getAllBoard() {
+//		List<Board> boards = new ArrayList<>();
+//		repository.findAll().forEach(boards::add);
+//		
+//		return boards;
+//	}
+	public List<Board> getAllBoard(Pageable pageable) {
 		List<Board> boards = new ArrayList<>();
 		repository.findAll().forEach(boards::add);
+		
+		Page<Board> _boards = repository.findAll(pageable);
+		
+		System.out.println(_boards.getContent());
 		
 		return boards;
 	}
@@ -78,7 +90,6 @@ public class BoardController {
 				_board.setUpdatedOn(ZonedDateTime.now());
 				_board.setText(xssFilter.doFilter(board.getText()));
 				_board.setTitle(xssFilter.doFilter(board.getTitle()));
-				_board.setWriter(board.getWriter());
 			} else {
 				_board.setHit(_board.getHit() + 1);
 			}

@@ -1,13 +1,13 @@
 <template>
-    <div class="list row">
+    <div>
       <h4>Board List</h4>
-      <table class="table table-hover">
+      <table class="table table-hover" style="table-layout: fixed;">
         <thead>
           <tr>
             <th style="width: 10%;" scope="col">NO</th>
             <th style="width: 10%;" scope="col">title</th>
             <th style="width: 15%;" scope="col">writer</th>
-            <th scope="col">text</th>
+            <th style="width: 30%">text</th>
             <th style="width: 5%;" scope="col">hit</th>
             <th style="width: 15%;" scope="col">created_on</th>
             <th style="width: 15%;" scope="col">updated_on</th>
@@ -22,7 +22,7 @@
               </router-link>
             </td>
             <td>{{ board.writer }}</td>
-            <td>{{ board.text }}</td>
+            <td class="td">{{ board.text }}</td>
             <td>{{ board.hit }}</td>
             <td>{{ board.createdOn.slice(0,19).replace("T"," ") }}</td>
             <td>{{ board.updatedOn.slice(0,19).replace("T"," ") }}</td>
@@ -77,5 +77,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-
+.td {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
 </style>

@@ -9,6 +9,8 @@ import Home from '@/components/Home.vue'
 Vue.use(Router)
 
 export default new Router({
+  // url/# 안붙게 - https://kimyhcj.tistory.com/239?category=537759
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -20,14 +22,6 @@ export default new Router({
       name: 'boards',
       alias: '/boards',
       component: BoardList
-      // children: [
-      //   {
-      //     path: '/board/:id',
-      //     name: 'board-details',
-      //     component: Boards,
-      //     props: true
-      //   }
-      // ]
     },
     {
       path: '/board/:id',

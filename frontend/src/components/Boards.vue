@@ -1,19 +1,31 @@
 <template>
   <div v-if="this.board">
     <h4>Board-details</h4>
-    <div>
-      <label>id: </label> {{this.board.id}}
-    </div>
-    <div>
-      <label>title: </label> {{this.board.title}}
-    </div>
-    <div>
-      <label>writer: </label> {{this.board.writer}}
-    </div>
-    <div>
-      <label>createdOn: </label> {{this.board.createdOn}}
-    </div>
-    <span class="button btn-danger" @click="deleteBoard()">Delete</span>
+    <table class="table table-hover" style="width: 100%;">
+      <tbody>
+        <tr>
+          <td>ID</td>
+          <td>{{ this.board.id }}</td>
+          <td>DATE</td>
+          <td>{{ this.board.createdOn.slice(0,19).replace("T"," ") }}</td>
+        </tr>
+        <tr>
+          <td>WRITER</td>
+          <td>{{ this.board.writer }}</td>
+          <td>TITLE</td>
+          <td>{{ this.board.title }}</td>
+        </tr>
+        <tr>
+          <td><label for="text">TEXT</label></td>
+          <td colspan="3">
+          <textarea class="form-control" id="text" maxlength="255" required v-model="board.text" name="text"/>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <span class="button btn-lg btn-info" @click="updateBoard()">Update</span>
+    <span class="button btn-lg btn-danger" @click="deleteBoard()">Delete</span>
   </div>
 </template>
 
@@ -25,17 +37,18 @@ export default {
   props: ["board"],
   methods: {
     /* eslint-disable no-console */
-    updateActive(status) {
+    updateBoard() {
       var data = {
         id: this.board.id,
         title: this.board.title,
-        writer: this.board.writer
+        text: this.board.text
       };
  
       http
         .put("/board/" + this.board.id, data)
         .then(response => {
           // console.log(response.data);
+          this.$router.push('/list');
         })
         .catch(e => {
           console.log(e);

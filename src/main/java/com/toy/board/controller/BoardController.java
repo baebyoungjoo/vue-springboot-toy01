@@ -43,19 +43,9 @@ public class BoardController {
 	}
 	
 	@RequestMapping(value="/boards", method=RequestMethod.GET)
-//	public List<Board> getAllBoard() {
-//		List<Board> boards = new ArrayList<>();
-//		repository.findAll().forEach(boards::add);
-//		
-//		return boards;
-//	}
-	public List<Board> getAllBoard(Pageable pageable) {
+	public List<Board> getAllBoard() {
 		List<Board> boards = new ArrayList<>();
 		repository.findAll().forEach(boards::add);
-		
-		Page<Board> _boards = repository.findAll(pageable);
-		
-		System.out.println(_boards.getContent());
 		
 		return boards;
 	}

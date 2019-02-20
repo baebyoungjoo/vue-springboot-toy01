@@ -1,9 +1,17 @@
 <template>
   <div>
-    <!-- TODO -->
-    <h1>header</h1>
-    <span>{{ dpTime }}</span>
-    <hr/>
+    <div id='header'>
+      <!-- TODO -->
+      <h1>header</h1>
+      <span>{{ dpTime }}</span>
+      <nav>
+        <router-link class="btn btn-primary" to="/">Home</router-link>
+        <router-link class="btn btn-primary" to="/list">Boards</router-link>
+        <router-link class="btn btn-primary" to="/add">Add</router-link>
+        <router-link class="btn btn-primary" to="/search">Search</router-link>
+      </nav>
+      <hr/>
+    </div>
   </div>
 </template>
 
@@ -30,3 +38,12 @@
       }
   }
 </script>
+
+<style>
+#header {
+  background-color: white;
+  position: fixed;
+  z-index: 30;
+  width: 100%;
+}
+</style>

@@ -1,16 +1,18 @@
 <template>
   <div id="app" class="container-fluid">
-    <div id="header">
-      <Header/>
+    
+    <Header/>
+    
+    <div id="content">
+      <!-- <nav>
+        <router-link class="btn btn-primary" to="/">Home</router-link>
+        <router-link class="btn btn-primary" to="/list">Boards</router-link>
+        <router-link class="btn btn-primary" to="/add">Add</router-link>
+        <router-link class="btn btn-primary" to="/search">Search</router-link>
+      </nav> -->
+      <br/>
+      <router-view/>
     </div>
-    <nav>
-      <router-link class="btn btn-primary" to="/">Home</router-link>
-      <router-link class="btn btn-primary" to="/list">Boards</router-link>
-      <router-link class="btn btn-primary" to="/add">Add</router-link>
-      <router-link class="btn btn-primary" to="/search">Search</router-link>
-    </nav>
-    <br/>
-    <router-view/>
     <div id="footer">
       <Footer />
     </div>
@@ -32,10 +34,15 @@ export default {
 
 <style>
 #app {
+  position: relative;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+}
+
+#content {
+  padding: 130px 0 0;
 }
 
 .lnb {

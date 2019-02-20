@@ -5,4 +5,5 @@ A toy project to study.
 ulisesbocchio - jasypt <br>
 naver - lucy-xss-servlet <br>
 java8 - ZonedDateTime, Optional <br>
-surmon-china - vue-awesome-swiper
+surmon-china - vue-awesome-swiper <br>
+moment.js

@@ -7,3 +7,5 @@ naver - lucy-xss-servlet <br>
 java8 - ZonedDateTime, Optional <br>
 surmon-china - vue-awesome-swiper <br>
 moment.js
+
+server start && npm run dev

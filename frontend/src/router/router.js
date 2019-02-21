@@ -50,12 +50,12 @@ export default new Router({
       component: Login
     },
     {
-      path: '/joinTerms',
+      path: '/join/joinTerms',
       name: 'join-terms',
       component: JoinTerms
     },
     {
-      path: '/signUp',
+      path: '/join/signUp',
       name: 'sign-up',
       component: SignUp
     }

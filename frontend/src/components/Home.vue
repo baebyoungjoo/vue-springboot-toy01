@@ -60,44 +60,6 @@
   }
 </script>
 
-<style lang="scss" scoped>
-  .swiper-container {
-    background-color: #000;
-  }
-  .swiper-slide {
-    background-size: cover;
-    background-position: center;
-    &.slide-1 {
-      background-image: url('/static/images/senna.jpg');
-    }
-    &.slide-2 {
-      background-image: url('/static/images/918spider.jpg');
-    }
-    &.slide-3 {
-      background-image: url('/static/images/aventador.jpg');
-    }
-    &.slide-4 {
-      background-image: url('/static/images/laferrari.jpg');
-    }
-    &.slide-5 {
-      background-image: url('/static/images/r8spider.jpg');
-    }
-  }
-  .gallery-top {
-    height: 80%!important;
-    width: 100%;
-  }
-  .gallery-thumbs {
-    height: 20%!important;
-    box-sizing: border-box;
-    padding: 5px 0;
-  }
-  .gallery-thumbs .swiper-slide {
-    width: 25%;
-    height: 100%;
-    opacity: 0.4;
-  }
-  .gallery-thumbs .swiper-slide-active {
-    opacity: 1;
-  }
+<style src="@/assets/styles/style.css">
+/* @import '../../../frontend/src/assets/styles/style.css'; */
 </style>

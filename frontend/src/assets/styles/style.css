@@ -1,0 +1,66 @@
+/* awesome-slider */
+.swiper-container {
+  background-color: #000;
+}
+.swiper-slide {
+  background-size: cover;
+  background-position: center;
+}
+.swiper-slide.slide-1 {
+  background-image: url('/static/images/senna.jpg');
+}
+.swiper-slide.slide-2 {
+  background-image: url('/static/images/918spider.jpg');
+}
+.swiper-slide.slide-3 {
+  background-image: url('/static/images/aventador.jpg');
+}
+.swiper-slide.slide-4 {
+  background-image: url('/static/images/laferrari.jpg');
+}
+.swiper-slide.slide-5 {
+  background-image: url('/static/images/r8spider.jpg');
+}
+.gallery-top {
+  height: 80% !important;
+  width: 100%;
+}
+.gallery-thumbs {
+  height: 20% !important;
+  box-sizing: border-box;
+  padding: 5px 0;
+}
+.gallery-thumbs .swiper-slide {
+  width: 25%;
+  height: 100%;
+  opacity: 0.4;
+}
+.gallery-thumbs .swiper-slide-active {
+  opacity: 1;
+}
+/* awesome-slider */
+  
+.paging_step {
+    overflow: hidden;
+    width: 48px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.ico_paging.on {
+    background-position: -100px -30px;
+}
+
+.ico_paging {
+    float: left;
+    width: 22px;
+    height: 6px;
+    background-position: -100px -20px;
+    content: '';
+}
+
+.ico_join {
+    display: inline-block;
+    background-image: url(https://t1.daumcdn.net/id/member/2016/ico_join_160909.gif);
+    background-repeat: no-repeat;
+}

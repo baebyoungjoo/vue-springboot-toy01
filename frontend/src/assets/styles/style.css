@@ -136,3 +136,6 @@ dl, ul, ol, menu, li {
     overflow: hidden;
     width: 100%;
 }
+.cont_agreement .tit_article2 {
+  font-weight: normal;
+}

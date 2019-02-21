@@ -41,26 +41,98 @@
 /* awesome-slider */
   
 .paging_step {
-    overflow: hidden;
-    width: 48px;
-    margin: 0 auto;
-    text-align: center;
+  overflow: hidden;
+  width: 48px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .ico_paging.on {
-    background-position: -100px -30px;
+  background-position: -100px -30px;
 }
 
 .ico_paging {
-    float: left;
-    width: 22px;
-    height: 6px;
-    background-position: -100px -20px;
-    content: '';
+  float: left;
+  width: 22px;
+  height: 6px;
+  background-position: -100px -20px;
+  content: '';
 }
 
 .ico_join {
-    display: inline-block;
-    background-image: url(https://t1.daumcdn.net/id/member/2016/ico_join_160909.gif);
-    background-repeat: no-repeat;
+  display: inline-block;
+  background-image: url(https://t1.daumcdn.net/id/member/2016/ico_join_160909.gif);
+  background-repeat: no-repeat;
+}
+
+/* terms */
+.title_agreement {
+  text-align: left;
+  padding: 10px;
+}
+.right {
+  padding: 10px;
+  text-align: right;
+  float: right;
+}
+.terms_agreement {
+  width: 50%;
+  margin: 0 auto;
+  margin-top: 20px;
+  border: 1px solid #e6e6e6;
+  /* text-align: center; */
+}
+.terms_content {
+  overflow: auto;
+  letter-spacing: 0;
+  height: 230px;
+  padding: 10px;
+}
+.cont_agreement {
+    overflow: auto;
+    height: 232px;
+    padding: 0 18px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #767676;
+    letter-spacing: 0;
+    border-top: 1px solid #767676;
+    text-align: left;
+}
+.cont_agreement .tit_article {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+}
+.cont_agreement .tit {
+    display: block;
+    margin: 10px 0 3px;
+    font-weight: bold;
+}
+dl, ul, ol, menu, li {
+    list-style: none;
+}
+.cont_agreement .list_terms .txt_num {
+    float: left;
+    width: 14px;
+    text-indent: 1px;
+}
+.cont_agreement .list_terms .txt_clause {
+    padding-left: 13px;
+}
+.list_terms li{overflow:hidden;width:100%}
+.cont_agreement .list_terms .txt_num {
+    float: left;
+    width: 14px;
+    text-indent: 1px;
+}
+.cont_agreement .list_terms .txt_clause {
+    padding-left: 13px;
+}
+.cont_agreement .list_2depth {
+    margin-left: 15px;
+}
+.cont_agreement .list_terms li {
+    overflow: hidden;
+    width: 100%;
 }

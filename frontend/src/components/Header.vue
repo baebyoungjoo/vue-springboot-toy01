@@ -7,9 +7,9 @@
         <router-link class="btn btn-primary" to="/list">Boards</router-link>
         <router-link class="btn btn-primary" to="/add">Add</router-link>
         <router-link class="btn btn-primary" to="/search">Search</router-link>
+        <router-link class="btn btn-primary" to="/login">Login</router-link>
       </nav>
       <span>{{ dpTime }}</span>
-      <hr />
     </div>
   </div>
 </template>
@@ -44,5 +44,7 @@
   position: fixed;
   z-index: 30;
   width: 100%;
+  height: 90px;
+  border-bottom: 1px solid #e6e6e6;
 }
 </style>

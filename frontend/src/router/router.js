@@ -1,10 +1,15 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import Home from '@/components/Home.vue'
+/* */
 import BoardList from '@/components/BoardList.vue'
 import PostBoard from '@/components/PostBoard.vue'
 import SearchBoard from '@/components/SearchBoard.vue'
 import Boards from '@/components/Boards.vue'
-import Home from '@/components/Home.vue'
+/* */
+import Login from '@/components/Login.vue'
+import JoinTerms from '@/components/joins/JoinTerms.vue'
+import SignUp from '@/components/joins/SignUp.vue'
 
 Vue.use(Router)
 
@@ -38,6 +43,21 @@ export default new Router({
       path: '/search',
       name: 'search',
       component: SearchBoard
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: Login
+    },
+    {
+      path: '/joinTerms',
+      name: 'join-terms',
+      component: JoinTerms
+    },
+    {
+      path: '/signUp',
+      name: 'sign-up',
+      component: SignUp
     }
   ]
 })

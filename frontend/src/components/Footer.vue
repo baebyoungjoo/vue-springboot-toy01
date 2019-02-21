@@ -1,8 +1,9 @@
 <template>
   <div>
     <!-- TODO -->
-    <hr/>
-    <h1>Footer</h1>
+    <div id="footer">
+      <h1>Footer</h1>
+    </div>
   </div>
 </template>
 
@@ -12,3 +13,12 @@
       name: 'footer'
   }
 </script>
+
+<style>
+#footer {
+  background-color: white;
+  width: 100%;
+  padding-top: 10px;
+  border-top: 1px solid #e6e6e6;
+}
+</style>

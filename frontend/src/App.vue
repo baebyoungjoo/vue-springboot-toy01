@@ -1,21 +1,15 @@
 <template>
-  <div id="app" class="container-fluid">
+  <div id="app">
     
     <Header/>
     
     <div id="content">
-      <!-- <nav>
-        <router-link class="btn btn-primary" to="/">Home</router-link>
-        <router-link class="btn btn-primary" to="/list">Boards</router-link>
-        <router-link class="btn btn-primary" to="/add">Add</router-link>
-        <router-link class="btn btn-primary" to="/search">Search</router-link>
-      </nav> -->
       <br/>
       <router-view/>
     </div>
-    <div id="footer">
-      <Footer />
-    </div>
+    
+    <Footer />
+
   </div>
 </template>
 
@@ -42,7 +36,8 @@ export default {
 }
 
 #content {
-  padding: 130px 0 0;
+  padding: 70px 0 0;
+  margin: 0 auto 40px;
 }
 
 .lnb {

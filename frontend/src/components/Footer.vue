@@ -8,10 +8,10 @@
 </template>
 
 <script>
-  /* TODO */
-  export default {
-      name: 'footer'
-  }
+/* TODO */
+export default {
+  name: 'footer'
+}
 </script>
 
 <style>

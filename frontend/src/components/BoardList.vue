@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import http from "../http-common"
+import { axiosInstanceBoard } from "../http-common"
 /* eslint-disable no-console */
 export default {
   name: 'HelloWorld',
@@ -45,7 +45,7 @@ export default {
   },
   methods: {
     retrieveBoards() {
-      http.get("/boards")
+      axiosInstanceBoard.get("/boards")
       .then(response => {
         this.boards = response.data
         // console.log(response.data)
@@ -58,7 +58,7 @@ export default {
       this.retrieveBoards()
     },
     hitup(boardId) {
-      http
+      axiosInstanceBoard
         .put("/board/" + boardId)
         .then(response => {
           // console.log(response.data);

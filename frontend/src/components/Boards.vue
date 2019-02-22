@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import http from "../http-common";
+import { axiosInstanceBoard } from "../http-common";
  
 export default {
   name: "board",
@@ -44,7 +44,7 @@ export default {
         text: this.board.text
       };
  
-      http
+      axiosInstanceBoard
         .put("/board/" + this.board.id, data)
         .then(response => {
           // console.log(response.data);
@@ -55,7 +55,7 @@ export default {
         });
     },
     deleteBoard() {
-      http
+      axiosInstanceBoard
         .delete("/board/" + this.board.id)
         .then(response => {
           // console.log(response.data);

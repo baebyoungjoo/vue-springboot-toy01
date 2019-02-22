@@ -15,27 +15,27 @@
 </template>
 
 <script>
-  import moment from 'moment'
-  
-  /* TODO */
-  export default {
-      name: 'header',
-      data() {
-          return{
-            dpTime: moment().format('YYYY-MM-DD HH:mm:ss')
-          }
-      },
-      methods: {
-        updateTime() {
-            setInterval(() => {
-                this.dpTime = moment().format('YYYY-MM-DD HH:mm:ss')
-            }, 1000);
-        }
-      },
-      created: function() {
-          this.updateTime()
-      }
+import moment from 'moment'
+
+/* TODO */
+export default {
+  name: 'header',
+  data() {
+    return{
+      dpTime: moment().format('YYYY-MM-DD HH:mm:ss')
+    }
+  },
+  methods: {
+    updateTime() {
+      setInterval(() => {
+        this.dpTime = moment().format('YYYY-MM-DD HH:mm:ss')
+      }, 1000);
+    }
+  },
+  created: function() {
+    this.updateTime()
   }
+}
 </script>
 
 <style>

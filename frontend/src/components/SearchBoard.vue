@@ -18,7 +18,7 @@
 </template>
  
 <script>
-import http from "../http-common";
+import { axiosInstanceBoard } from "../http-common";
  
 export default {
   name: "search-customer",
@@ -31,7 +31,7 @@ export default {
   methods: {
     /* eslint-disable no-console */
     searchBoards() {
-      http
+      axiosInstanceBoard
         .get("/board/" + this.id)
         .then(response => {
           this.boards = response.data; // JSON are parsed automatically.

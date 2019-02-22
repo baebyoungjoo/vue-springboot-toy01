@@ -2,17 +2,17 @@
   <div class="submitform">
       <h3>Add Board</h3>
       <div v-if="!submitted">
-          <div class="form-group">
-              <label for="writer">writer</label>
-              <input type="text" class="form-control" id="writer" required v-model="board.writer" name="writer">
-          </div>
+        <div class="form-group">
+            <label for="writer">writer</label>
+            <input type="text" class="form-control" id="writer" required v-model="board.writer" name="writer">
+        </div>
     
         <div class="form-group">
           <label for="title">title</label>
           <input type="text" class="form-control" id="title" maxlength="30" required v-model="board.title" name="title">
         </div>
     
-    <div class="form-group">
+        <div class="form-group">
           <label for="text">text</label>
           <input type="text" class="form-control" id="text" maxlength="255" required v-model="board.text" name="text">
         </div>
@@ -28,48 +28,47 @@
 </template>
 
 <script>
-import http from '../http-common'
+import { axiosInstanceBoard } from '../http-common'
 
 export default {
-    name: 'post-board',
-    data() {
-        return {
-            board: {
-                id: 0,
-                title: '',
-                writer: '',
-                text: '',
-                hit: 0
-            },
-            submitted: false
-        }
-    },
-    methods: {
-        /* eslint-disable no-console */
-        saveBoard() {
-        var data = {
-            title: this.board.title,
-            writer: this.board.writer,
-            text: this.board.text
-        };
-    
-        http
-            .post("/board", data)
-            .then(response => {
-            this.board.id = response.data.id;
-            // console.log(response.data);
-            })
-            .catch(e => {
-            console.log(e);
-            });
+  name: 'post-board',
+  data() {
+    return {
+      board: {
+        id: 0,
+        title: '',
+        writer: '',
+        text: '',
+        hit: 0
+      },
+      submitted: false
+    }
+  },
+  methods: {
+    /* eslint-disable no-console */
+    saveBoard() {
+      var data = {
+        title: this.board.title,
+        writer: this.board.writer,
+        text: this.board.text
+      };
+      axiosInstanceBoard
+        .post("/board", data)
+        .then(response => {
+          this.board.id = response.data.id;
+          // console.log(response.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
     
         this.submitted = true;
-        },
-        newBoard() {
-        this.submitted = false;
-        this.board = {};
-        }
-        /* eslint-enable no-console */
+    },
+    newBoard() {
+      this.submitted = false;
+      this.board = {};
     }
+    /* eslint-enable no-console */
+  }
 }
 </script>

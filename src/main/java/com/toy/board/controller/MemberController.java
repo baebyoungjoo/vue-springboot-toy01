@@ -5,6 +5,9 @@ import com.toy.board.repository.MemberRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -14,6 +17,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/member")
+@CrossOrigin(origins = "http://localhost:7732")
 @Api(description = "회원가입 관련")
 public class MemberController {
 
@@ -25,9 +29,9 @@ public class MemberController {
         Optional<Member> optMember = repository.findByUserId(userId);
 
         if (optMember.isPresent()) {
-            return "중복 아이디 있음";
+            return "ok";
         } else {
-            return "중복 아이디 없음";
+            return "no";
         }
     }
 

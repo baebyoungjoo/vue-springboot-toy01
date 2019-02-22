@@ -12,7 +12,7 @@ import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="Board")
+@Table(name = "Board")
 public class Board {
 	
 	@Id

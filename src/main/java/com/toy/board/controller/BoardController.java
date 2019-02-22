@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,12 +27,14 @@ import com.toy.board.repository.BoardRepository;
 @RequestMapping("/api")
 /* 로컬 개발 주석 해제 */
 @CrossOrigin(origins = "http://localhost:7732")
+@Api(description = "게시글 관련")
 public class BoardController {
 
 	@Autowired BoardRepository repository;
 	@Autowired XssFilter xssFilter;
 	
-	@RequestMapping(value="/board", method=RequestMethod.POST)
+	@RequestMapping(value = "/board", method = RequestMethod.POST)
+	@ApiOperation(value = "등록", notes = "새로운 게시글 등록")
 	public Board newPostBoard(@RequestBody Board board) {
 		Board _board = board;
 		
@@ -42,7 +46,8 @@ public class BoardController {
 		return _board;
 	}
 	
-	@RequestMapping(value="/boards", method=RequestMethod.GET)
+	@RequestMapping(value = "/boards", method = RequestMethod.GET)
+	@ApiOperation(value = "전체 보기", notes = "전체 게시글 보기")
 	public List<Board> getAllBoard() {
 		List<Board> boards = new ArrayList<>();
 		repository.findAll().forEach(boards::add);
@@ -50,7 +55,8 @@ public class BoardController {
 		return boards;
 	}
 	
-	@RequestMapping(value="/board/{id}", method=RequestMethod.GET)
+	@RequestMapping(value = "/board/{id}", method = RequestMethod.GET)
+	@ApiOperation(value = "검색", notes = "특정 게시글 검색")
 	public List<Board> findBoard(@PathVariable("id") long id) {
 		Optional<Board> optBoard = repository.findById(id);
 		List<Board> board = new ArrayList<>();
@@ -61,14 +67,16 @@ public class BoardController {
 		return board;
 	}
 	
-	@RequestMapping(value="/board/{id}", method=RequestMethod.DELETE)
+	@RequestMapping(value = "/board/{id}", method = RequestMethod.DELETE)
+	@ApiOperation(value = "삭제", notes = "게시글 삭제")
 	public ResponseEntity<String> deleteBoard(@PathVariable("id") long id) {
 		repository.deleteById(id);
 		
 		return new ResponseEntity<>("Board has been deleted!!", HttpStatus.OK);
 	}
 	
-	@RequestMapping(value="/board/{id}", method=RequestMethod.PUT)
+	@RequestMapping(value = "/board/{id}", method = RequestMethod.PUT)
+	@ApiOperation(value = "수정", notes = "게시글 수정")
 	public ResponseEntity<Board> updateBoard(@PathVariable("id") long id, @RequestBody(required=false) Board board) {
 		/* Optional prefix: maybe or opt */
 		Optional<Board> optBoardData = repository.findById(id);

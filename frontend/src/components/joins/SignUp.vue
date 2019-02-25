@@ -85,7 +85,7 @@
       </div>
     </div>
 
-    <router-link class="btn btn-sm" to="/join/joinTerms">이전으로</router-link>
+    <router-link class="btn btn-sm btn-outline-warning" to="/join/joinTerms">이전으로</router-link>
 
   </div>
 </template>
@@ -127,9 +127,9 @@ export default {
       const dotPattern = /^\.{1,}|[\.]$|\.{2,}/
 
       axiosInstanceMember
-        .get("/check/" + this.userId)
+        .post("/check/" + this.userId)
         .then(response => {
-          response.data == 'ok' ? this.idDuplicateChk = true : this.idDuplicateChk = false
+          response.data == "EXIST" ? this.idDuplicateChk = true : this.idDuplicateChk = false
         })
         .catch(error => {
           console.log(error)
@@ -158,7 +158,7 @@ export default {
 
       /* TODO 한글 이름 2-3자 이상, 영문 이름 2-30자 */
     },
-    emailValidChk() {
+    emailValidCheck() {
       /* TODO email valid check */
     },
   }

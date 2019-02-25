@@ -23,15 +23,15 @@ public class MemberController {
 
     @Autowired MemberRepository repository;
 
-    @RequestMapping(value = "/check/{userId}", method = RequestMethod.GET)
+    @RequestMapping(value = "/check/{userId}", method = RequestMethod.POST)
     @ApiOperation(value = "중복 확인", notes = "회원 가입 시 ID 중복 확인")
-    public String memberCheck(@PathVariable("userId") String userId) {
+    public ResponseEntity<String> memberCheck(@PathVariable("userId") String userId) {
         Optional<Member> optMember = repository.findByUserId(userId);
 
         if (optMember.isPresent()) {
-            return "ok";
+            return new ResponseEntity<>("EXIST", HttpStatus.OK);
         } else {
-            return "no";
+            return new ResponseEntity<>("NOT_EXIST", HttpStatus.OK);
         }
     }
 

@@ -75,7 +75,10 @@
           <dt><label>이메일 주소</label></dt>
           <dd>
             <div>
-              <input type="text" class="form-control" id="email" required v-model="email" placeholder="이메일" name="email">
+              <input type="text" class="form-control" id="email" required v-model="email" placeholder="이메일" name="email" @focus="emailValidChk = false;" @blur="emailValidCheck">
+            </div>
+            <div v-if="emailValidChk">
+              <p class="txt_message">이메일 주소 형식이 아닙니다. 본인확인이 가능한 이메일 주소를 입력해 주세요.</p>
             </div>
           </dd>
         </dl>
@@ -112,6 +115,8 @@ export default {
       nameOnlyStr: false,
       nameKoLengthChk: false,
       nameEnLengthChk: false,
+      /* email check value */
+      emailValidChk: false,
     }
   },
   methods: {
@@ -136,6 +141,12 @@ export default {
     compareTwoPassword() {
       this.password1 === this.password2 ? this.isMatchedPwd = false : this.isMatchedPwd = true
     },
+    passwordValidCheck() {
+      /* password check - 숫자만 x */
+      const numPattern = /^\d+$/
+
+      numPattern.test(this.password1) == true ? this.passwordOnlyNum = true : this.passwordOnlyNum = false
+    },
     nameValidCheck() {
       /* 이름은 한글 및 영문 - 공백, 특수문자, 숫자 x */
       const numPattern = /[0-9]/
@@ -147,11 +158,9 @@ export default {
 
       /* TODO 한글 이름 2-3자 이상, 영문 이름 2-30자 */
     },
-    passwordValidCheck() {
-      const numPattern = /^\d+$/
-
-      numPattern.test(this.password1) == true ? this.passwordOnlyNum = true : this.passwordOnlyNum = false
-    }
+    emailValidChk() {
+      /* TODO email valid check */
+    },
   }
 }
 

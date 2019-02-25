@@ -7,14 +7,14 @@
     </div>
     가입 정보 입력<br>
     로그인 정보 및 가입 정보를 입력하세요.
-    
+
     <div class="form-group">
       <div>
         <dl>
           <dt><label>아이디</label></dt>
           <dd>
             <div>
-              <input type="text" class="form-control" id="userId" required v-model="userId" placeholder="아이디를 입력해 주세요" name="userId"  @focus="idDuplicateChk = false; idLengthChk = false; idOnlyNumChk = false; idValidChk = false;" @blur="duplicateIdCheckHandler">
+              <input type="text" class="form-control" id="userId" required v-model="userId" placeholder="아이디를 입력해 주세요" name="userId" @focus="idDuplicateChk = false; idLengthChk = false; idOnlyNumChk = false; idValidChk = false;" @blur="duplicateIdCheckHandler">
             </div>
             <div v-if="idDuplicateChk">
               <p class="txt_message">이미 사용된 아이디여서 또 사용할 수 없어요. 다른 아이디를 입력해 주세요.</p>
@@ -86,7 +86,7 @@
     </div>
 
     <router-link class="btn btn-sm btn-outline-warning" to="/join/joinTerms">이전으로</router-link>
-
+    <!-- TODO 회원가입 완료 submit -->
   </div>
 </template>
 
@@ -156,14 +156,20 @@ export default {
       numPattern.test(this.userName) || spcPattern.test(this.userName) || emptyPattern.test(this.userName) ? 
         this.nameOnlyStr = true : this.nameOnlyStr = false
 
-      /* TODO 한글 이름 2-3자 이상, 영문 이름 2-30자 */
+      /* 한글 이름 2-3자 이상, 영문 이름 2-30자 */
+      const koPattern = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/
+      const enPattern = /[a-zA-z]/
+
+      if (koPattern.test(this.userName) && this.userName.length < 2) this.nameKoLengthChk = true
+      if (enPattern.test(this.userName) && this.userName.length < 2) this.nameEnLengthChk = true
     },
     emailValidCheck() {
-      /* TODO email valid check */
+      const emailPattern = /[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}/
+
+      emailPattern.test(this.email) ? this.emailValidChk = false : this.emailValidChk = true
     },
   }
 }
-
 </script>
 
 <style src="@/assets/styles/style.css">

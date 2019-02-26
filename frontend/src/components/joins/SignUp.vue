@@ -86,10 +86,10 @@
     </div>
 
     <router-link class="btn btn-sm btn-outline-warning" to="/join/joinTerms">이전으로</router-link>
-    <!-- TODO 회원가입 완료 submit -->
-    <router-link to="/login">
+    <!-- TODO 회원가입 완료 -> 어디로 리다이렉션? -->
+    <!-- <router-link to="/login"> -->
       <button @click="saveMember" class="btn btn-sm btn-info">회원 가입</button>
-    </router-link>
+    <!-- </router-link> -->
   </div>
 </template>
 
@@ -200,6 +200,10 @@ export default {
       }
     },
     saveMember() {
+      this.$noty.success("회원 가입 성공!", {
+        theme: 'semanticui',
+        timeout: 3000
+      })
       var memberData = {
         userId: this.userId,
         name: this.userName,

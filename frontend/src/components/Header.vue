@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id='header'>
+    <div class="navbar fixed-top navbar-dark bg-primary">
       <!-- TODO -->
       <nav>
         <router-link class="btn btn-primary" to="/">Home</router-link>
@@ -39,12 +39,4 @@ export default {
 </script>
 
 <style>
-#header {
-  background-color: white;
-  position: fixed;
-  z-index: 30;
-  width: 100%;
-  height: 90px;
-  border-bottom: 1px solid #e6e6e6;
-}
 </style>

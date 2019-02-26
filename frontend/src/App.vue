@@ -36,7 +36,7 @@ export default {
 }
 
 #content {
-  padding: 70px 0 0;
+  padding: 40px 0 0;
   margin: 0 auto 40px;
 }
 

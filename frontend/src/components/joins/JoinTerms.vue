@@ -8,14 +8,18 @@
     
     <div class="row justify-content-md-center terms_agreement">
       <div class="col-md-3 title_agreement">약관 동의</div>
-      <div class="col-md-1 ml-auto right"><input type="checkbox" name="terms" id="terms" v-model="terms" :checked="terms" @change="updatedTermsCheckedStatus"/></div>
+      <div class="col-md-1 ml-auto right">
+        <input type="checkbox" name="terms" id="terms" v-model="terms" :checked="terms" @change="updatedTermsCheckedStatus"/>
+      </div>
       <div class="w-100"></div>
       <Terms/>
     </div>
 
     <div class="row justify-content-md-center terms_agreement">
       <div class="col-md-4 title_agreement">개인정보 수집 및 이용 동의</div>
-      <div class="col-md-1 ml-auto right"><input type="checkbox" name="privacy" id="privacy" v-model="privacy" :checked="privacy" @change="updatePrivacyCheckedStatus"/></div>
+      <div class="col-md-1 ml-auto right">
+        <input type="checkbox" name="privacy" id="privacy" v-model="privacy" :checked="privacy" @change="updatePrivacyCheckedStatus"/>
+      </div>
       <div class="w-100"></div>
       <TermsPrivacy/>
     </div>

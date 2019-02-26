@@ -7,6 +7,7 @@ naver - lucy-xss-servlet <br>
 java8 - ZonedDateTime, Optional <br>
 surmon-china - vue-awesome-swiper <br>
 moment.js <br>
-springfox - swagger2, swagger-ui (ip:port/swagger-ui.html)
+springfox - swagger2, swagger-ui (ip:port/swagger-ui.html) <br>
+spring security - spring-security-web(BCryptPasswordEncoder)
 
 server start && npm run dev

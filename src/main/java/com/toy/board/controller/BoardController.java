@@ -36,14 +36,14 @@ public class BoardController {
 	@RequestMapping(value = "/board", method = RequestMethod.POST)
 	@ApiOperation(value = "등록", notes = "새로운 게시글 등록")
 	public Board newPostBoard(@RequestBody Board board) {
-		Board _board = board;
-		
-		_board.setTitle(xssFilter.doFilter(board.getTitle()));
-		_board.setText(xssFilter.doFilter(board.getText()));
-		
-		_board = repository.save(board);
-		
-		return _board;
+			Board _board = board;
+
+			_board.setTitle(xssFilter.doFilter(board.getTitle()));
+			_board.setText(xssFilter.doFilter(board.getText()));
+
+			_board = repository.save(board);
+
+			return _board;
 	}
 	
 	@RequestMapping(value = "/boards", method = RequestMethod.GET)

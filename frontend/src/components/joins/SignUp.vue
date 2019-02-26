@@ -14,7 +14,7 @@
           <dt><label>아이디</label></dt>
           <dd>
             <div>
-              <input type="text" class="form-control" id="userId" required v-model="userId" placeholder="아이디를 입력해 주세요" name="userId" @focus="idDuplicateChk = false; idLengthChk = false; idOnlyNumChk = false; idValidChk = false;" @blur="duplicateIdCheckHandler">
+              <input type="text" class="form-control" id="userId" required v-model="userId" placeholder="아이디를 입력해 주세요" name="userId" @focus="statusChange('id')" @blur="duplicateIdCheckHandler">
             </div>
             <div v-if="idDuplicateChk">
               <p class="txt_message">이미 사용된 아이디여서 또 사용할 수 없어요. 다른 아이디를 입력해 주세요.</p>
@@ -35,7 +35,7 @@
           <dt><label>비밀번호</label></dt>
           <dd>
             <div>
-              <input type="password" class="form-control" id="password1" required v-model="password1" maxlength="32" placeholder="비밀번호(8자 이상)" name="password1" @focus="passwordOnlyNum = false" @blur="passwordValidCheck">
+              <input type="password" class="form-control" id="password1" required v-model="password1" maxlength="32" placeholder="비밀번호(8자 이상)" name="password1" @focus="statusChange('password1')" @blur="passwordValidCheck">
             </div>
             <div v-if="passwordOnlyNum">
               <p class="txt_message">숫자로 된 비밀번호는 사용할 수 없어요! 영문자, 특수문자를 함께 입력해 주세요.</p>
@@ -44,7 +44,7 @@
           <dt><label>비밀번호 재확인</label></dt>
           <dd>
             <div>
-              <input type="password" class="form-control" id="password2" required v-model="password2" maxlength="32" placeholder="비밀번호 재확인" name="password2" @focus="isMatchedPwd = false" @blur="compareTwoPassword">
+              <input type="password" class="form-control" id="password2" required v-model="password2" maxlength="32" placeholder="비밀번호 재확인" name="password2" @focus="statusChange('password2')" @blur="compareTwoPassword">
             </div>
             <div v-if="isMatchedPwd">
               <p class="txt_message">비밀번호와 일치하지 않습니다. 다시 입력해 주세요.</p>
@@ -58,7 +58,7 @@
           <dt><label>이름</label></dt>
           <dd>
             <div>
-              <input type="text" class="form-control" id="userName" required v-model="userName" placeholder="이름" maxlength="32" name="userName"  @focus="nameOnlyStr = false; nameKoLengthChk = false; nameEnLengthChk = false;" @blur="nameValidCheck">
+              <input type="text" class="form-control" id="userName" required v-model="userName" placeholder="이름" maxlength="32" name="userName"  @focus="statusChange('name')" @blur="nameValidCheck">
             </div>
             <div v-if="nameOnlyStr">
               <p class="txt_message">사용할 수 없는 문자가 있어요. 한글(성과 이름을 공백없이 입력) 또는 영문만 입력해 주세요.</p>
@@ -75,7 +75,7 @@
           <dt><label>이메일 주소</label></dt>
           <dd>
             <div>
-              <input type="text" class="form-control" id="email" required v-model="email" placeholder="이메일" name="email" @focus="emailValidChk = false;" @blur="emailValidCheck">
+              <input type="text" class="form-control" id="email" required v-model="email" placeholder="이메일" name="email" @focus="statusChange('email')" @blur="emailValidCheck">
             </div>
             <div v-if="emailValidChk">
               <p class="txt_message">이메일 주소 형식이 아닙니다. 본인확인이 가능한 이메일 주소를 입력해 주세요.</p>
@@ -87,6 +87,9 @@
 
     <router-link class="btn btn-sm btn-outline-warning" to="/join/joinTerms">이전으로</router-link>
     <!-- TODO 회원가입 완료 submit -->
+    <router-link to="/login">
+      <button @click="saveMember" class="btn btn-sm btn-info">회원 가입</button>
+    </router-link>
   </div>
 </template>
 
@@ -104,6 +107,7 @@ export default {
       userName: '',
       email: '',
       /* id check value */
+      responsedata: '',
       idDuplicateChk: false,
       idValidChk: false,
       idLengthChk: false,
@@ -129,17 +133,18 @@ export default {
       axiosInstanceMember
         .post("/check/" + this.userId)
         .then(response => {
-          response.data == "EXIST" ? this.idDuplicateChk = true : this.idDuplicateChk = false
+          response.data == "EXIST" ? this.idDuplicateChk = true : this.idDuplicateChk = false;
         })
         .catch(error => {
           console.log(error)
         })
-      this.userId.length < 3 ? this.idLengthChk = true : this.idLengthChk = false
-      numPattern.test(this.userId) ? this.idOnlyNumChk = true : this.idOnlyNumChk = false
-      spcPattern.test(this.userId) || dotPattern.test(this.userId) ? this.idValidChk = true : this.idValidChk = false
+      this.userId.length < 3 ? this.idLengthChk = true : this.idLengthChk = false;
+      numPattern.test(this.userId) ? this.idOnlyNumChk = true : this.idOnlyNumChk = false;
+      spcPattern.test(this.userId) || dotPattern.test(this.userId) ? this.idValidChk = true : this.idValidChk = false;
+      
     },
     compareTwoPassword() {
-      this.password1 === this.password2 ? this.isMatchedPwd = false : this.isMatchedPwd = true
+      this.password1 === this.password2 ? this.isMatchedPwd = false : this.isMatchedPwd = true;
     },
     passwordValidCheck() {
       /* password check - 숫자만 x */
@@ -167,6 +172,48 @@ export default {
       const emailPattern = /[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}/
 
       emailPattern.test(this.email) ? this.emailValidChk = false : this.emailValidChk = true
+    },
+    statusChange(scope) {
+      this.isValid = false
+      this.isInValid = false
+      switch(scope) {
+        case 'id':
+          this.idDuplicateChk = false
+          this.idLengthChk = false
+          this.idOnlyNumChk = false
+          this.idValidChk = false
+          break;
+        case 'password1':
+          this.passwordOnlyNum = false
+          break;
+        case 'password2':
+          this.isMatchedPwd = false
+          break;
+        case 'name':
+          this.nameOnlyStr = false
+          this.nameKoLengthChk = false
+          this.nameEnLengthChk = false
+          break;
+        case 'email':
+          this.emailValidChk = false
+          break;
+      }
+    },
+    saveMember() {
+      var memberData = {
+        userId: this.userId,
+        name: this.userName,
+        password: this.password1,
+        email: this.email,
+      }
+      axiosInstanceMember
+        .post("/join", memberData)
+        .then(response => {
+          // console.log(response.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
     },
   }
 }

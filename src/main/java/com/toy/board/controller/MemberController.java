@@ -7,8 +7,10 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,7 +39,18 @@ public class MemberController {
 
     @RequestMapping(value = "/join", method = RequestMethod.POST)
     @ApiOperation(value = "회원 가입", notes = "회원 가입")
-    public String memberJoin() {
-        return "join";
+    public Member memberJoin(@RequestBody Member member) {
+        BCryptPasswordEncoder BCryptPasswordEncoder = new BCryptPasswordEncoder();
+
+        Member _member = member;
+
+        _member.setUserId(member.getUserId());
+        _member.setName(member.getName());
+        _member.setPassword(BCryptPasswordEncoder.encode(_member.getPassword()));
+        _member.setEmail(member.getEmail());
+
+        _member = repository.save(member);
+
+        return _member;
     }
 }

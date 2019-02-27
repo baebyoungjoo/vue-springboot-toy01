@@ -200,10 +200,6 @@ export default {
       }
     },
     saveMember() {
-      this.$noty.success("회원 가입 성공!", {
-        theme: 'semanticui',
-        timeout: 3000
-      })
       var memberData = {
         userId: this.userId,
         name: this.userName,
@@ -213,6 +209,10 @@ export default {
       axiosInstanceMember
         .post("/join", memberData)
         .then(response => {
+          this.$noty.success("회원 가입 성공!", {
+            theme: 'semanticui',
+            timeout: 3000
+          })
           // console.log(response.data);
         })
         .catch(e => {

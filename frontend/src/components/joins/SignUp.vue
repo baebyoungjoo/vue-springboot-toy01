@@ -262,24 +262,30 @@ export default {
       }
     },
     saveMember() {
-      var memberData = {
-        userId: this.userId,
-        name: this.userName,
-        password: this.password1,
-        email: this.email,
+      this.$v.$touch()
+      if (this.$v.$invalid) {
+        console.log("invalid")
+      } else {
+        console.log("valid")
       }
-      axiosInstanceMember
-        .post("/join", memberData)
-        .then(response => {
-          this.$noty.success("회원 가입 성공!", {
-            theme: 'semanticui',
-            timeout: 3000
-          })
-          // console.log(response.data);
-        })
-        .catch(e => {
-          console.log(e);
-        });
+      // var memberData = {
+      //   userId: this.userId,
+      //   name: this.userName,
+      //   password: this.password1,
+      //   email: this.email,
+      // }
+      // axiosInstanceMember
+      //   .post("/join", memberData)
+      //   .then(response => {
+      //     this.$noty.success("회원 가입 성공!", {
+      //       theme: 'semanticui',
+      //       timeout: 3000
+      //     })
+      //     // console.log(response.data);
+      //   })
+      //   .catch(e => {
+      //     console.log(e);
+      //   });
     },
   }
 }

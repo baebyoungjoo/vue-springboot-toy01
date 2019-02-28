@@ -5,12 +5,14 @@ import App from './App'
 import router from './router/router.js'
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 import VueNoty from 'vuejs-noty'
+import Vuelidate from 'vuelidate'
 
 require('swiper/dist/css/swiper.css')
 require('vuejs-noty/dist/vuejs-noty.css')
 
 Vue.use(VueAwesomeSwiper)
 Vue.use(VueNoty)
+Vue.use(Vuelidate)
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

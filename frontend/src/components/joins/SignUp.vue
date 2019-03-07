@@ -85,11 +85,11 @@
               <p class="txt_message">사용할 수 없는 문자가 있어요. 한글(성과 이름을 공백없이 입력) 또는 영문만 입력해 주세요.</p>
             </div>
             <!-- <div v-else-if="nameKoLengthChk"> -->
-            <div v-else-if="!$v.userName.minLength && !$v.userName.koHelpers">
+            <div v-else-if="!$v.userName.isKorean">
               <p class="txt_message">성과 이름(2자 또는 3자 이상)을 함께 입력해 주세요.</p>
             </div>
             <!-- <div v-else-if="nameEnLengthChk"> -->
-            <div v-else-if="!$v.userName.minLength && !$v.userName.enHelpers">
+            <div v-else-if="!$v.userName.isAlpha">
               <p class="txt_message">영어 이름은 2~30자 까지 입력할 수 있어요.</p>
             </div>
           </dd>
@@ -109,11 +109,11 @@
         </dl>
       </div>
     </div>
-<pre>{{$v}}</pre>
+
     <router-link class="btn btn-sm btn-outline-warning" to="/join/joinTerms">이전으로</router-link>
-    <!-- TODO 회원가입 완료 -> 어디로 리다이렉션? -->
+    <!-- TODO 회원가입 완료 -> 어디로 리다이렉션? 보통은 메인화면으로..?? 로그인페이지..?-->
     <!-- <router-link to="/login"> -->
-      <button @click="saveMember" class="btn btn-sm btn-info">회원 가입</button>
+      <button @click="saveMember" :disabled="invalidChecker == 1" class="btn btn-sm btn-info">회원 가입</button>
     <!-- </router-link> -->
   </div>
 </template>
@@ -121,7 +121,7 @@
 <script>
 /* TODO */
 import { axiosInstanceMember } from '../../http-common'
-import { required, minLength, sameAs, helpers, email, numeric, not, async, isUnique } from 'vuelidate/lib/validators'
+import { required, minLength, sameAs, helpers, email, numeric, not, async, isUnique, alpha } from 'vuelidate/lib/validators'
 
 export default {
   name: "signUp",
@@ -147,6 +147,12 @@ export default {
       nameEnLengthChk: false,
       /* email check value */
       emailValidChk: false,
+    }
+  },
+  computed: {
+    invalidChecker() {
+      if(this.$v.$invalid) return 1
+      else return -1
     }
   },
   validations: {
@@ -177,115 +183,44 @@ export default {
     },
     userName: {
       required,
-      minLength: minLength(2),
       helpers: not(helpers.regex('userName', /[0-9]|[`~!@#$%^&*()\-_=+\\|;:'",<.>/?[\]{}]|\s/)),
-      koHelpers: not(helpers.regex('userName', /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/)),
-      enHelpers: not(helpers.regex('userName', /[a-zA-z]/))
+      isKorean(userName){
+        if (/[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/.test(userName) && userName.length < 2) return false
+        else return true
+      },
+      isAlpha(userName) {
+        if (/[a-zA-Z]/.test(userName) && userName.length < 2) return false
+        else return true
+      }
     },
     email: {
       email
     }
   },
   methods: {
-    // duplicateIdCheckHandler() {
-    //   /* id check - 숫자만 x, 영문 소문자, 빼기 (-), 밑줄 (_), 마침표 (.) 사용 가능. 마침표 (.) 는 앞, 뒤, 연속 사용 x */
-    //   const numPattern = /^\d+$/
-    //   const spcPattern = /[`~!@#$%^&*()=+\\|;:'",<>/?[\]{}]/
-    //   const dotPattern = /^\.{1,}|[\.]$|\.{2,}/
-
-    //   axiosInstanceMember
-    //     .post("/check/" + this.userId)
-    //     .then(response => {
-    //       response.data == "EXIST" ? this.idDuplicateChk = true : this.idDuplicateChk = false;
-    //     })
-    //     .catch(error => {
-    //       console.log(error)
-    //     })
-    //   this.userId.length < 3 ? this.idLengthChk = true : this.idLengthChk = false;
-    //   numPattern.test(this.userId) ? this.idOnlyNumChk = true : this.idOnlyNumChk = false;
-    //   spcPattern.test(this.userId) || dotPattern.test(this.userId) ? this.idValidChk = true : this.idValidChk = false;
-    // },
-    // compareTwoPassword() {
-    //   this.password1 === this.password2 ? this.isMatchedPwd = false : this.isMatchedPwd = true;
-    // },
-    // passwordValidCheck() {
-    //   /* password check - 숫자만 x */
-    //   const numPattern = /^\d+$/
-
-    //   numPattern.test(this.password1) == true ? this.passwordOnlyNum = true : this.passwordOnlyNum = false
-    // },
-    // nameValidCheck() {
-    //   /* 이름은 한글 및 영문 - 공백, 특수문자, 숫자 x */
-    //   const numPattern = /[0-9]/
-    //   const spcPattern = /[`~!@#$%^&*()\-_=+\\|;:'",<.>/?[\]{}]/
-    //   const emptyPattern = /\s/
-
-    //   numPattern.test(this.userName) || spcPattern.test(this.userName) || emptyPattern.test(this.userName) ? 
-    //     this.nameOnlyStr = true : this.nameOnlyStr = false
-
-    //   /* 한글 이름 2-3자 이상, 영문 이름 2-30자 */
-    //   const koPattern = /[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]/
-    //   const enPattern = /[a-zA-z]/
-
-    //   if (koPattern.test(this.userName) && this.userName.length < 2) this.nameKoLengthChk = true
-    //   if (enPattern.test(this.userName) && this.userName.length < 2) this.nameEnLengthChk = true
-    // },
-    // emailValidCheck() {
-    //   const emailPattern = /[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}/
-
-    //   emailPattern.test(this.email) ? this.emailValidChk = false : this.emailValidChk = true
-    // },
-    statusChange(scope) {
-      this.isValid = false
-      this.isInValid = false
-      switch(scope) {
-        case 'id':
-          this.idDuplicateChk = false
-          this.idLengthChk = false
-          this.idOnlyNumChk = false
-          this.idValidChk = false
-          break;
-        case 'password1':
-          this.passwordOnlyNum = false
-          break;
-        case 'password2':
-          this.isMatchedPwd = false
-          break;
-        case 'name':
-          this.nameOnlyStr = false
-          this.nameKoLengthChk = false
-          this.nameEnLengthChk = false
-          break;
-        case 'email':
-          this.emailValidChk = false
-          break;
-      }
-    },
     saveMember() {
-      this.$v.$touch()
-      if (this.$v.$invalid) {
-        console.log("invalid")
-      } else {
-        console.log("valid")
+      var memberData = {
+        userId: this.userId,
+        name: this.userName,
+        password: this.password1,
+        email: this.email,
       }
-      // var memberData = {
-      //   userId: this.userId,
-      //   name: this.userName,
-      //   password: this.password1,
-      //   email: this.email,
-      // }
-      // axiosInstanceMember
-      //   .post("/join", memberData)
-      //   .then(response => {
-      //     this.$noty.success("회원 가입 성공!", {
-      //       theme: 'semanticui',
-      //       timeout: 3000
-      //     })
-      //     // console.log(response.data);
-      //   })
-      //   .catch(e => {
-      //     console.log(e);
-      //   });
+      
+      this.$v.$touch()
+      if (!this.$v.$invalid) {
+        axiosInstanceMember
+        .post("/join", memberData)
+        .then(response => {
+          this.$noty.success("회원 가입 성공!", {
+            theme: 'semanticui',
+            timeout: 3000
+          })
+          // console.log(response.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+      }
     },
   }
 }

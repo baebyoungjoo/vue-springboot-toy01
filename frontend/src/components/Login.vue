@@ -1,30 +1,52 @@
 <template>
   <div>
     <!-- TODO -->
-    <input type="text" id="id" name="name" placeholder="id" v-model="$v.name.$model"/>
-    <div v-if="!$v.name.required">Field is required</div>
-    <div v-if="!$v.name.minLength">Name must have at least {{$v.name.$params.minLength.min}} letters.</div>
-    <input type="password" id="password" placeholder="password"/>
+    <input type="text" id="userId" name="userId" placeholder="userId" v-model="$v.userId.$model"/>
+    <div v-if="!$v.userId.required">Field is required</div>
+    <div v-else-if="!$v.userId.minLength">Name must have at least {{$v.userId.$params.minLength.min}} letters.</div>
+    <input type="password" id="password" placeholder="password" v-model="password"/>
 
-    <router-link class="btn btn-sm btn-outline-primary" to="/home">로그인</router-link>
+    <!-- <router-link to="/"> -->
+      <button @click="loginMember" class="btn btn-sm btn-info">로그인</button>
+    <!-- </router-link> -->
     <router-link class="btn btn-sm btn-outline-info" to="/join/joinTerms">회원가입</router-link>
   </div>
 </template>
 
 <script>
   /* TODO */
+import { axiosInstanceMember } from '../http-common'
 import { required, minLength, between } from 'vuelidate/lib/validators'
 
 export default {
+  name: 'login',
   data() {
     return {
-      name: '',
+      userId: '',
+      password: '',
     }
   },
   validations: {
-    name: {
+    userId: {
       required,
       minLength: minLength(3),
+    },
+  },
+  methods: {
+    loginMember() {
+      var data = {
+        userId: this.userId,
+        password: this.password,
+      }
+
+      axiosInstanceMember
+        .post('/login', data)
+        .then(response => {
+          console.log("success")
+        })
+        .catch(error => {
+          console.log(error)
+        });
     },
   }
 }

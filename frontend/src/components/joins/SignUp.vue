@@ -209,7 +209,7 @@ export default {
       this.$v.$touch()
       if (!this.$v.$invalid) {
         axiosInstanceMember
-        .post("/join", memberData)
+        .put("/join", memberData)
         .then(response => {
           this.$noty.success("회원 가입 성공!", {
             theme: 'semanticui',

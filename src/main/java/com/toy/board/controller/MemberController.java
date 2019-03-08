@@ -8,12 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -37,20 +32,45 @@ public class MemberController {
         }
     }
 
-    @RequestMapping(value = "/join", method = RequestMethod.POST)
+    private BCryptPasswordEncoder BCryptPasswordEncoder = new BCryptPasswordEncoder();
+
+    @RequestMapping(value = "/join", method = RequestMethod.PUT)
     @ApiOperation(value = "회원 가입", notes = "회원 가입")
     public Member memberJoin(@RequestBody Member member) {
-        BCryptPasswordEncoder BCryptPasswordEncoder = new BCryptPasswordEncoder();
 
         Member _member = member;
-
+        System.out.println(member.getPassword());
+        System.out.println(_member.getPassword());
+        System.out.println("*********************");
         _member.setUserId(member.getUserId());
         _member.setName(member.getName());
-        _member.setPassword(BCryptPasswordEncoder.encode(_member.getPassword()));
+        _member.setPassword(BCryptPasswordEncoder.encode(member.getPassword()));
         _member.setEmail(member.getEmail());
+        System.out.println(member.getPassword());
+        System.out.println(_member.getPassword());
+        System.out.println("*********************");
 
-        _member = repository.save(member);
+        _member = repository.save(_member);
 
         return _member;
+    }
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @ApiOperation(value = "로그인", notes = "로그인")
+    public ResponseEntity<Member> memberLogin(@RequestBody Member member) {
+
+        Optional<Member> optMemberData = repository.findByUserId(member.getUserId());
+        System.out.println(member.getUserId());
+        System.out.println(member.getPassword());
+        if (optMemberData.isPresent()) {
+            Member _member = optMemberData.get();
+            System.out.println(BCryptPasswordEncoder.matches(member.getPassword(), _member.getPassword()));
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            System.out.println("no");
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+
     }
 }

@@ -39,16 +39,11 @@ public class MemberController {
     public Member memberJoin(@RequestBody Member member) {
 
         Member _member = member;
-        System.out.println(member.getPassword());
-        System.out.println(_member.getPassword());
-        System.out.println("*********************");
+
         _member.setUserId(member.getUserId());
         _member.setName(member.getName());
         _member.setPassword(BCryptPasswordEncoder.encode(member.getPassword()));
         _member.setEmail(member.getEmail());
-        System.out.println(member.getPassword());
-        System.out.println(_member.getPassword());
-        System.out.println("*********************");
 
         _member = repository.save(_member);
 
@@ -60,11 +55,14 @@ public class MemberController {
     public ResponseEntity<Member> memberLogin(@RequestBody Member member) {
 
         Optional<Member> optMemberData = repository.findByUserId(member.getUserId());
-        System.out.println(member.getUserId());
-        System.out.println(member.getPassword());
+
         if (optMemberData.isPresent()) {
             Member _member = optMemberData.get();
-            System.out.println(BCryptPasswordEncoder.matches(member.getPassword(), _member.getPassword()));
+            if (BCryptPasswordEncoder.matches(member.getPassword(), _member.getPassword())) {
+                /* TODO 비밀번호 일치 = 로그인 성공 */
+            } else {
+                /* TODO 비밀번호 불일치 = 로그인 실패 */
+            }
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
             System.out.println("no");

@@ -8,7 +8,7 @@
     가입 정보 입력<br>
     로그인 정보 및 가입 정보를 입력하세요.
 
-    <div class="form-group">
+    <div class="form-group row justify-content-md-center">
       <div>
         <dl>
           <dt><label>아이디</label></dt>
@@ -109,19 +109,19 @@
         </dl>
       </div>
     </div>
-
+    <!-- <pre>{{$v.$invalid}}</pre> -->
     <router-link class="btn btn-sm btn-outline-warning" to="/join/joinTerms">이전으로</router-link>
     <!-- TODO 회원가입 완료 -> 어디로 리다이렉션? 보통은 메인화면으로..?? 로그인페이지..?-->
-    <!-- <router-link to="/login"> -->
+    <router-link to="/">
       <button @click="saveMember" :disabled="invalidChecker == 1" class="btn btn-sm btn-info">회원 가입</button>
-    <!-- </router-link> -->
+    </router-link>
   </div>
 </template>
 
 <script>
 /* TODO */
 import { axiosInstanceMember } from '../../http-common'
-import { required, minLength, sameAs, helpers, email, numeric, not, async, isUnique, alpha } from 'vuelidate/lib/validators'
+import { required, minLength, sameAs, helpers, email, numeric, not, async} from 'vuelidate/lib/validators'
 
 export default {
   name: "signUp",
@@ -215,7 +215,6 @@ export default {
             theme: 'semanticui',
             timeout: 3000
           })
-          // console.log(response.data);
         })
         .catch(e => {
           console.log(e);

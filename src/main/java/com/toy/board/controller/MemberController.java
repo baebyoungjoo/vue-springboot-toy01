@@ -45,9 +45,9 @@ public class MemberController {
         _member.setPassword(BCryptPasswordEncoder.encode(member.getPassword()));
         _member.setEmail(member.getEmail());
 
-        _member = repository.save(_member);
+        repository.save(_member);
 
-        return new ResponseEntity<>("ok",HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -65,7 +65,6 @@ public class MemberController {
             }
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
-            System.out.println("no");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }

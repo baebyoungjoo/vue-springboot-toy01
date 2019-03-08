@@ -45,7 +45,10 @@ export default {
           console.log("success")
         })
         .catch(error => {
-          console.log(error)
+          this.$noty.warning("아이디 혹은 비밀번호를 확인해주세요!", {
+            theme: 'semanticui',
+            timeout: 3000
+          })
         });
     },
   }

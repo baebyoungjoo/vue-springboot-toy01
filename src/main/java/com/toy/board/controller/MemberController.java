@@ -36,7 +36,7 @@ public class MemberController {
 
     @RequestMapping(value = "/join", method = RequestMethod.PUT)
     @ApiOperation(value = "회원 가입", notes = "회원 가입")
-    public Member memberJoin(@RequestBody Member member) {
+    public ResponseEntity<String> memberJoin(@RequestBody Member member) {
 
         Member _member = member;
 
@@ -47,7 +47,7 @@ public class MemberController {
 
         _member = repository.save(_member);
 
-        return _member;
+        return new ResponseEntity<>("ok",HttpStatus.OK);
     }
 
     @RequestMapping(value = "/login", method = RequestMethod.POST)
@@ -68,7 +68,5 @@ public class MemberController {
             System.out.println("no");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
-
     }
 }

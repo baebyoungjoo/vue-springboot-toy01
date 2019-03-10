@@ -9,6 +9,7 @@ surmon-china - vue-awesome-swiper <br>
 moment.js <br>
 springfox - swagger2, swagger-ui (ip:port/swagger-ui.html) <br>
 spring security - spring-security-web(BCryptPasswordEncoder) <br>
-Vuelidate
+Vuelidate <br>
+naver - captcha
 
 server start && npm run dev

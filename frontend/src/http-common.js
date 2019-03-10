@@ -14,3 +14,10 @@ export const axiosInstanceMember = axios.create({
     'Content-type': 'application/json'
   }
 })
+
+export const axiosInstanceCaptcha = axios.create({
+  baseURL: 'http://localhost:6335/captcha',
+  headers: {
+    'Content-type': 'text/plain;charset=UTF-8'
+  }
+})

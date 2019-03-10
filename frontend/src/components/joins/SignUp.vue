@@ -108,6 +108,18 @@
           </dd>
         </dl>
       </div>
+
+      <!-- TODO captcha key, image 회원가입 진입 시 갱신 -->
+      <div>
+        <dl>
+          <dt>
+          <button @click="getCaptchaKey">captchaKey</button>
+          <button @click="getCaptchaImage">captchaImage</button>
+          <input type="text" v-model="captchaValue">
+          <button @click="captchaValidCheck">captchaValidCheck</button>
+          </dt>
+        </dl>
+      </div>
     </div>
     <!-- <pre>{{$v.$invalid}}</pre> -->
     <router-link class="btn btn-sm btn-outline-warning" to="/join/joinTerms">이전으로</router-link>
@@ -120,7 +132,7 @@
 
 <script>
 /* TODO */
-import { axiosInstanceMember } from '../../http-common'
+import { axiosInstanceMember, axiosInstanceCaptcha } from '../../http-common'
 import { required, minLength, sameAs, helpers, email, numeric, not, async} from 'vuelidate/lib/validators'
 
 export default {
@@ -147,6 +159,8 @@ export default {
       nameEnLengthChk: false,
       /* email check value */
       emailValidChk: false,
+      captchaKey: '',
+      captchaValue: '',
     }
   },
   computed: {
@@ -220,6 +234,38 @@ export default {
           console.log(e);
         });
       }
+    },
+    /* TODO captcha */
+    getCaptchaKey() {
+      axiosInstanceCaptcha
+      .get("/key")
+      .then(response => {
+        this.captchaKey = response.data.key
+        console.log(response.data.key)
+      })
+      .catch(e => {
+        console.log("e" + e)
+      })
+    },
+    getCaptchaImage() {
+      axiosInstanceCaptcha
+      .get("/image/" + this.captchaKey)
+      .then(response => {
+        console.log(response)
+      })
+      .catch(e => {
+        console.log(e)
+      })
+    },
+    captchaValidCheck() {
+      axiosInstanceCaptcha
+      .get("/check/" + this.captchaKey + "/" + this.captchaValue)
+      .then(response => {
+        console.log(response.data.result)
+      })
+      .catch(e => {
+        console.log(e)
+      })
     },
   }
 }

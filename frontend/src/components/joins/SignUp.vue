@@ -115,6 +115,8 @@
           <dt>
           <button @click="getCaptchaKey">captchaKey</button>
           <button @click="getCaptchaImage">captchaImage</button>
+          <pre>{{captchaImageName}}</pre>
+          
           <input type="text" v-model="captchaValue">
           <button @click="captchaValidCheck">captchaValidCheck</button>
           </dt>
@@ -159,8 +161,10 @@ export default {
       nameEnLengthChk: false,
       /* email check value */
       emailValidChk: false,
+      /* captcha */
       captchaKey: '',
       captchaValue: '',
+      captchaImageName: '',
     }
   },
   computed: {
@@ -251,6 +255,7 @@ export default {
       axiosInstanceCaptcha
       .get("/image/" + this.captchaKey)
       .then(response => {
+        this.captchaImageName = response.data
         console.log(response)
       })
       .catch(e => {

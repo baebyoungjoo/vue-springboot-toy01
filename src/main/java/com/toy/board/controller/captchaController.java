@@ -18,10 +18,11 @@ import java.util.Date;
 @CrossOrigin(origins = "http://localhost:7732")
 @Api(description = "naver captcha")
 public class captchaController {
+
     private Logger logger = LoggerFactory.getLogger(captchaController.class);
     private String clientId = "HvrzgP1qGuN9I4mSLisg";
     private String clientSecret = "ZsbUrnJxla";
-    private String captchaImagePath = System.getProperty("user.dir") + "/captchaImage";
+    private String captchaImagePath = System.getProperty("user.dir") + "/src/main/resources/static/captchaImage";
 
     private static HttpURLConnection connectionSetting(String apiURL, String clientId, String clientSecret) throws Exception {
         URL url = new URL(apiURL);
@@ -68,7 +69,7 @@ public class captchaController {
         HttpURLConnection con = connectionSetting(apiURL, clientId, clientSecret);
         int responseCode = con.getResponseCode();
         BufferedReader br;
-        if(responseCode==200) { // 정상 호출
+        if (responseCode == 200) { // 정상 호출
             InputStream is = con.getInputStream();
             int read = 0;
             byte[] bytes = new byte[1024];

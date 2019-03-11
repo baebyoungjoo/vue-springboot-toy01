@@ -113,12 +113,10 @@
       <div>
         <dl>
           <dt>
-          <button @click="getCaptchaKey">captchaKey</button>
-          <button @click="getCaptchaImage">captchaImage</button>
-          <pre>{{captchaImageName}}</pre>
-          
-          <input type="text" v-model="captchaValue">
-          <button @click="captchaValidCheck">captchaValidCheck</button>
+            <img :src="`D:/dev/my_projects/vue-springboot-toy01/src/main/resources/static/captchaImage/${captchaImageName}.jpg`">
+            <pre>{{captchaImageName}}</pre>
+            <input type="text" v-model="captchaValue">
+            <button @click="captchaValidCheck">captchaValidCheck</button>
           </dt>
         </dl>
       </div>
@@ -166,6 +164,11 @@ export default {
       captchaValue: '',
       captchaImageName: '',
     }
+  },
+  created() {
+    this.$nextTick(() => {
+      this.getCaptchaKey()
+    })
   },
   computed: {
     invalidChecker() {
@@ -245,10 +248,11 @@ export default {
       .get("/key")
       .then(response => {
         this.captchaKey = response.data.key
-        console.log(response.data.key)
+        console.log("*** GET captchaKey success ***", response.data.key)
+        this.getCaptchaImage()
       })
       .catch(e => {
-        console.log("e" + e)
+        console.log(e)
       })
     },
     getCaptchaImage() {
@@ -256,7 +260,7 @@ export default {
       .get("/image/" + this.captchaKey)
       .then(response => {
         this.captchaImageName = response.data
-        console.log(response)
+        console.log("*** GET captchaImage success ***", response.data)
       })
       .catch(e => {
         console.log(e)

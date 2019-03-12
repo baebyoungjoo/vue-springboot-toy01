@@ -113,8 +113,7 @@
       <div>
         <dl>
           <dt>
-            <img :src="`D:/dev/my_projects/vue-springboot-toy01/src/main/resources/static/captchaImage/${captchaImageName}.jpg`">
-            <pre>{{captchaImageName}}</pre>
+            <img :src="`/static/images/captchaImage/${captchaImageName}.jpg`">
             <input type="text" v-model="captchaValue">
             <button @click="captchaValidCheck">captchaValidCheck</button>
           </dt>
@@ -276,6 +275,7 @@ export default {
         console.log(e)
       })
     },
+
   }
 }
 </script>

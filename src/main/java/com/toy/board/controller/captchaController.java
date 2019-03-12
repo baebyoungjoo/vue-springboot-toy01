@@ -22,7 +22,10 @@ public class captchaController {
     private Logger logger = LoggerFactory.getLogger(captchaController.class);
     private String clientId = "HvrzgP1qGuN9I4mSLisg";
     private String clientSecret = "ZsbUrnJxla";
-    private String captchaImagePath = System.getProperty("user.dir") + "/src/main/resources/static/captchaImage";
+    /* 로컬 개발 시 사용 */
+    private String captchaImagePath = System.getProperty("user.dir") + "/frontend/static/images/captchaImage";
+    /* vue build 시 사용 */
+    private String captchaImagePath2 = System.getProperty("user.dir") + "/src/main/resources/static/static/images/captchaImage";
 
     private static HttpURLConnection connectionSetting(String apiURL, String clientId, String clientSecret) throws Exception {
         URL url = new URL(apiURL);

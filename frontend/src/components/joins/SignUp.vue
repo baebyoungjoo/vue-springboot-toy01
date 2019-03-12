@@ -113,14 +113,15 @@
       <div>
         <dl>
           <dt>
-            <img :src="`/static/images/captchaImage/${captchaImageName}.jpg`">
-            <input type="text" v-model="captchaValue">
-            <button @click="captchaValidCheck">captchaValidCheck</button>
+            <!--<img src="/static/images/captchaImage/1552389693975.jpg">-->
+            <img :src="'/static/images/captchaImage/'+captchaImageName+'.jpg?t='+new Date().getTime()">
+            <input type="text" class="form-control" id="captchaValue" v-model.lazy="$v.captchaValue.$model" @blur="$v.captchaValue.$touch()">
+            <!--<button @click="captchaValidCheck">captchaValidCheck</button>-->
           </dt>
         </dl>
       </div>
     </div>
-    <!-- <pre>{{$v.$invalid}}</pre> -->
+    <!--<pre>{{$v.$invalid}}</pre>-->
     <router-link class="btn btn-sm btn-outline-warning" to="/join/joinTerms">이전으로</router-link>
     <!-- TODO 회원가입 완료 -> 어디로 리다이렉션? 보통은 메인화면으로..?? 로그인페이지..?-->
     <router-link to="/">
@@ -132,7 +133,7 @@
 <script>
 /* TODO */
 import { axiosInstanceMember, axiosInstanceCaptcha } from '../../http-common'
-import { required, minLength, sameAs, helpers, email, numeric, not, async} from 'vuelidate/lib/validators'
+import { required, minLength, sameAs, helpers, email, numeric, not, async } from 'vuelidate/lib/validators'
 
 export default {
   name: "signUp",
@@ -162,6 +163,7 @@ export default {
       captchaKey: '',
       captchaValue: '',
       captchaImageName: '',
+      dpTime: moment().format('YYYYMMDDHHmm.ss')
     }
   },
   created() {
@@ -215,6 +217,20 @@ export default {
     },
     email: {
       email
+    },
+    captchaValue: {
+      required,
+      isCaptchaValueMatched(captchaValue) {
+        return axiosInstanceCaptcha
+          .get("/check/" + this.captchaKey + "/" + captchaValue)
+          .then(response => {
+            // console.log(response.data.result)
+            return response.data.result
+          })
+          .catch(e => {
+            console.log(e)
+          })
+      }
     }
   },
   methods: {
@@ -265,17 +281,6 @@ export default {
         console.log(e)
       })
     },
-    captchaValidCheck() {
-      axiosInstanceCaptcha
-      .get("/check/" + this.captchaKey + "/" + this.captchaValue)
-      .then(response => {
-        console.log(response.data.result)
-      })
-      .catch(e => {
-        console.log(e)
-      })
-    },
-
   }
 }
 </script>

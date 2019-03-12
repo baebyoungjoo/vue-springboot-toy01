@@ -18,6 +18,7 @@ export const axiosInstanceMember = axios.create({
 export const axiosInstanceCaptcha = axios.create({
   baseURL: 'http://localhost:6335/captcha',
   headers: {
+    'Cache-Control': 'no-cache',
     'Content-type': 'text/plain;charset=UTF-8'
   }
 })

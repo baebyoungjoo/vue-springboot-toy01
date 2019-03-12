@@ -56,6 +56,29 @@ public class captchaController {
         return response;
     }
 
+    private static void copyCaptchaImage(File sourceFile, File targetFile) throws Exception {
+        File[] targetFiles = sourceFile.listFiles();
+        for (File file : targetFiles) {
+            File tempFile = new File(targetFile.getAbsolutePath() + File.separator + file.getName());
+            if (file.isDirectory()) {
+                tempFile.mkdir();
+                copyCaptchaImage(file, tempFile);
+            } else {
+                FileInputStream fis;
+                FileOutputStream fos;
+                fis = new FileInputStream(file);
+                fos = new FileOutputStream(tempFile);
+                byte[] b = new byte[4096];
+                int cnt = 0;
+                while ((cnt = fis.read(b)) != -1) {
+                    fos.write(b, 0, cnt);
+                }
+
+                fis.close();
+                fos.close();
+            }
+        }
+    }
     @RequestMapping(value = "/key", method = RequestMethod.GET)
     @ApiOperation(value = "captcha key 발급")
     public String captchaGetKey() throws Exception {
@@ -84,6 +107,7 @@ public class captchaController {
             }
             f = new File(captchaImagePath + "/" + captchaImgName + ".jpg");
             f.createNewFile();
+//            copyCaptchaImage(f, new File(captchaImagePath2));
             OutputStream outputStream = new FileOutputStream(f);
             while ((read =is.read(bytes)) != -1) {
                 outputStream.write(bytes, 0, read);

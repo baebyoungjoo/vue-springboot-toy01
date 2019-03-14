@@ -120,7 +120,10 @@ dl, ul, ol, menu, li {
 .cont_agreement .list_terms .txt_clause {
     padding-left: 13px;
 }
-.list_terms li{overflow:hidden;width:100%}
+.list_terms li{
+  overflow:hidden;
+  width:100%;
+}
 .cont_agreement .list_terms .txt_num {
     float: left;
     width: 14px;
@@ -147,4 +150,31 @@ dl, ul, ol, menu, li {
   font-weight: normal;
   line-height: 1.5;
   text-indent: 0;
+}
+
+/* sign up */
+.wrap_info {
+  border-top: 1px solid #e6e6e6;
+  width: 50%;
+  margin: 0 auto;
+}
+.box_info {
+  padding: 23px 20px;
+  border-bottom: 1px solid #e6e6e6
+}
+.item_info {
+  position: relative;
+  padding: 7px 0
+}
+.item_info dt {
+  float: left;
+  width: 140px;
+  height: 40px;
+  line-height: 38px
+}
+.item_info dd {
+  overflow: hidden;
+  font-weight: bold;
+  text-indent: 15px;
+  line-height: 38px
 }

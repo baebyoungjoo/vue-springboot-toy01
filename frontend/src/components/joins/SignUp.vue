@@ -8,14 +8,14 @@
     가입 정보 입력<br>
     로그인 정보 및 가입 정보를 입력하세요.
 
-    <div class="form-group row justify-content-md-center">
-      <div>
-        <dl>
+    <!--<div class="form-group row justify-content-md-center">-->
+    <div class="wrap_info">
+      <div class="box_info">
+        <dl class="item_info">
           <dt><label>아이디</label></dt>
           <dd>
             <div>
-              <!-- <input type="text" class="form-control" id="userId" required v-model="$v.userId.$model" placeholder="아이디를 입력해 주세요" name="userId" @focus="statusChange('id')" @blur="duplicateIdCheckHandler"> -->
-              <input type="text" class="form-control" id="userId" required v-model="$v.userId.$model" placeholder="아이디를 입력해 주세요" name="userId" >
+              <input type="text" class="form-control" id="userId" required v-model.lazy="$v.userId.$model" placeholder="아이디를 입력해 주세요" name="userId" >
             </div>
             <div v-if="!$v.userId.required">
               <p class="txt_message">아이디를 입력해 주세요.</p>
@@ -43,7 +43,7 @@
             </div>
           </dd>
         </dl>
-        <dl>
+        <dl class="item_info">
           <dt><label>비밀번호</label></dt>
           <dd>
             <div>
@@ -69,8 +69,8 @@
         </dl>
       </div>
 
-      <div>
-        <dl>
+      <div class="box_info">
+        <dl class="item_info">
           <dt><label>이름</label></dt>
           <dd>
             <div>
@@ -94,7 +94,7 @@
             </div>
           </dd>
         </dl>
-        <dl>
+        <dl class="item_info">
           <dt><label>이메일 주소</label></dt>
           <dd>
             <div>
@@ -110,17 +110,20 @@
       </div>
 
       <!-- TODO captcha key, image 회원가입 진입 시 갱신 -->
-      <div>
-        <dl>
+      <div class="box_info">
+        <dl class="item_info">
           <dt>
-            <!--<img src="/static/images/captchaImage/1552389693975.jpg">-->
-            <img :src="'/static/images/captchaImage/'+captchaImageName+'.jpg?t='+new Date().getTime()">
-            <input type="text" class="form-control" id="captchaValue" v-model.lazy="$v.captchaValue.$model" @blur="$v.captchaValue.$touch()">
-            <!--<button @click="captchaValidCheck">captchaValidCheck</button>-->
+            <img :src="'/static/images/captchaImage/' + captchaImageName + '.jpg?t=' + new Date().getTime()">
           </dt>
+          <dd>
+            <input type="text" class="form-control" id="captchaValue" v-model.lazy="$v.captchaValue.$model">
+            <button @click="getCaptchaKey" class="btn btn-sm btn-outline-primary">*</button>
+            <!--<button @click="getCaptchaValid" class="btn btn-sm btn-outline-primary">이미지 </button>-->
+          </dd>
         </dl>
       </div>
     </div>
+    
     <!--<pre>{{$v.$invalid}}</pre>-->
     <router-link class="btn btn-sm btn-outline-warning" to="/join/joinTerms">이전으로</router-link>
     <!-- TODO 회원가입 완료 -> 어디로 리다이렉션? 보통은 메인화면으로..?? 로그인페이지..?-->
@@ -163,7 +166,6 @@ export default {
       captchaKey: '',
       captchaValue: '',
       captchaImageName: '',
-      dpTime: moment().format('YYYYMMDDHHmm.ss')
     }
   },
   created() {
@@ -276,6 +278,17 @@ export default {
       .then(response => {
         this.captchaImageName = response.data
         console.log("*** GET captchaImage success ***", response.data)
+      })
+      .catch(e => {
+        console.log(e)
+      })
+    },
+    getCaptchaValid() {
+      axiosInstanceCaptcha
+      .get("/check/" + this.captchaKey + "/" + this.captchaValue)
+      .then(response => {
+        console.log("*** GET captchaKey ***", this.captchaKey)
+        console.log("*** GET captcha value success ***", response.data)
       })
       .catch(e => {
         console.log(e)

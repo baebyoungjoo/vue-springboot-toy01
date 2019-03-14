@@ -79,6 +79,7 @@ public class captchaController {
             }
         }
     }
+
     @RequestMapping(value = "/key", method = RequestMethod.GET)
     @ApiOperation(value = "captcha key 발급")
     public String captchaGetKey() throws Exception {
